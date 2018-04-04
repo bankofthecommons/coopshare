@@ -1,0 +1,9 @@
+version: '3'
+services:
+  freecoin:
+    build: .
+    links:
+      - db
+    command: "lein run server"
+  db:
+    image: mongo
