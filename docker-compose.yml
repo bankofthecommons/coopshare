@@ -1,16 +1,20 @@
 version: '3'
 services:
+  proxy:
+    build: proxy/
+    links:
+      - freecoin
+    ports:
+      - 2000:2000
   freecoin:
     build: .
-    container_name: freeapi
+    container_name: freecoin
     links:
       - db
     command: "/app/bin/lein ring server-headless"
     volumes:
       - "./faircoin/config:/faircoin/config"
       - "./project.clj:/app/src/project.clj"
-    ports:
-      - 3000:3000
   db:
     image: mongo
     ports:
