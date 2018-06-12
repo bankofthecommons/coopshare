@@ -10,7 +10,7 @@ services:
     build: .
     container_name: freecoin
     links:
-      - db
+      - db:mongo
     command: "/app/bin/lein ring server-headless"
     volumes:
       - "./faircoin/config:/faircoin/config"
