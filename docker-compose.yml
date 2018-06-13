@@ -1,21 +1,27 @@
 version: '3'
 services:
   proxy:
-    build: proxy/
-    links:
-      - freecoin
+    image: proxy
+    volumes:
+      - "./proxy/index.js:/apps/http-proxy-middleware/examples/connect/index.js"
     ports:
       - 2000:2000
-  freecoin:
-    build: .
-    container_name: freecoin
-    links:
-      - db:mongo
+  freecoin-api:
+    image: freecoin
     command: "/app/bin/lein ring server-headless"
     volumes:
-      - "./faircoin/config:/faircoin/config"
       - "./project.clj:/app/src/project.clj"
-  db:
+      - "./freecoin/config:/app/src/resources"
+      - "./faircoin/config:/faircoin/config"
+  mongo:
     image: mongo
     ports:
       - "27017:27017"
+  faircoin:
+    image: mmoya/faircoin
+    volumes:
+      - /mnt/data/faircoin2-testnet:/faircoin2
+    command: --testnet -debug -printtoconsole
+    ports:
+      - 41404:41404
+      - 41405:41405
