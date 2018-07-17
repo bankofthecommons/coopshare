@@ -3,6 +3,7 @@
  */
 var http = require('http');
 var connect = require('connect');
+var cors = require('cors');
 var proxy = require('../../index'); // require('http-proxy-middleware');
 
 /**
