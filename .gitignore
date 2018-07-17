@@ -2,7 +2,7 @@
 .idea/
 # dependencies
 /node_modules
-
+**/proxy/**/node_modules
 # testing
 /coverage
 

@@ -1,0 +1,27 @@
+# verbosity level of messages
+log-level: debug
+
+# open freecoin specific section
+freecoin:
+# indentation matters: mind the initial spaces of following sections
+
+# configuration for the database holding local transactions
+  mongo:
+    host: mongo
+    port: 27017
+    db:   freecoin
+
+## configuration of the 'faircoin' blockchain
+  faircoin:
+# visualised name of the currency
+    currency: fair
+# number of confirmations to consider a transaction as valid
+    number-confirmations: 6
+# frequency of confirmations checks in milliseconds
+    frequency-confirmations-millis: 20000
+# path to the rpc configuration holding username and password
+    rpc-config-path: /faircoin2/config/faircoin.conf
+# deposit to an address watch expiration time in milliseconds
+    deposit-expiration-millis: 3600000
+# frequency of deposit checks in milliseconds
+    frequency-deposit-millis: 60000
