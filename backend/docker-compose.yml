@@ -6,7 +6,20 @@ services:
       - "./proxy/index.js:/apps/http-proxy-middleware/examples/connect/index.js"
     ports:
       - 2000:2000
+  proxy-testnet:
+    image: proxy
+    volumes:
+      - "./proxy-testnet/index.js:/apps/http-proxy-middleware/examples/connect/index.js"
+    ports:
+      - 2100:2000
   freecoin-api:
+    image: vmatekole/freecoin-api
+    command: "/app/bin/lein ring server-headless"
+    volumes:
+      - "./project.clj:/app/src/project.clj"
+      - "./freecoin/config:/app/src/resources"
+      - "./faircoin2/config:/faircoin2/config"
+  freecoin-api-testnet:
     image: vmatekole/freecoin-api
     command: "/app/bin/lein ring server-headless"
     volumes:
@@ -30,8 +43,8 @@ services:
     image: local-faircoin
     volumes:
       - /mnt/data/faircoin2:/faircoin2
-      - $PWD/faircoin2/config/faircoin.conf:/faircoin2/config/faircoin.conf
-    command: -datadir=/faircoin2/data -conf=/faircoin2/config/faircoin.conf -debug  -printtoconsole
+      - $PWD/faircoin2/config/faircoin.conf:/root/.faircoin2/config/faircoin.conf
+    command: -datadir=/faircoin2/data -conf=/root/.faircoin2/config/faircoin.conf -debug  -printtoconsole
     ports:
       - 40404:40404
       - 40405:40405
